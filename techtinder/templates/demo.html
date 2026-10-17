@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Tinder demo</title>
+<style>
+  :root { --hw:#0F6E56; --sw:#534AB7; --admin:#854F0B; --bridge:#FAC775; --line:#d0cfc8; --muted:#666; }
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; color: #222; }
+  h1 { font-size: 22px; font-weight: 500; } h2 { font-size: 16px; font-weight: 500; margin: 20px 0 8px; }
+  input, button { font: inherit; padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+  button { cursor: pointer; } button.primary { background: #222; color: #fff; border-color: #222; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+  .row { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: 13px; }
+  .row .lbl { width: 78px; color: var(--muted); } .track { flex: 1; height: 10px; background: #eee; border-radius: 3px; position: relative; }
+  .bar { position: absolute; left: 0; top: 0; height: 10px; border-radius: 3px; opacity: .85; }
+  .bar.them { top: 0; opacity: .35; } .tag { display: inline-block; padding: 2px 9px; margin: 2px 4px 2px 0; border-radius: 12px; font-size: 12px; background: #e8f3ee; color: #085041; }
+  .tag.bridge { background: var(--bridge); color: #633806; } .tag.int { background: #eeedfe; color: #3c3489; }
+  .badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #eee; margin-left: 6px; }
+  .muted { color: var(--muted); font-size: 13px; } .actions { margin-top: 10px; display: flex; gap: 8px; }
+  #msg { color: #a32d2d; font-size: 13px; min-height: 18px; }
+</style>
+</head>
+<body>
+<h1>Tech Tinder demo</h1>
+<p class="muted">Sign in with an existing account (create profiles through the API or the seed_demo command), then browse recommendations. Dark bars are you, light bars are them. Amber chips are shared bridge skills.</p>
+
+<div id="login">
+  <input id="u" placeholder="username"> <input id="p" type="password" placeholder="password">
+  <button class="primary" onclick="login()">Sign in</button>
+</div>
+<div id="msg"></div>
+<div id="app" hidden>
+  <div>
+    Mode:
+    <select id="mode" onchange="loadPeople()"><option>both</option><option>similar</option><option>complementary</option></select>
+    <button onclick="loadMatches()">My matches</button>
+  </div>
+  <div id="out"></div>
+</div>
+
+<script>
+let token = null;
+const DOM = {hw: "Hardware", sw: "Software", admin: "Admin"};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = id => document.getElementById(id);
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, {...opts, headers: {"Content-Type": "application/json", ...(token ? {Authorization: "Token " + token} : {})}});
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || JSON.stringify(data));
+  return data;
+}
+
+async function login() {
+  try {
+    const d = await api("/api/auth/token/", {method: "POST", body: JSON.stringify({username: $("u").value, password: $("p").value})});
+    token = d.token; $("login").hidden = true; $("app").hidden = false; $("msg").textContent = ""; loadPeople();
+  } catch (e) { $("msg").textContent = e.message; }
+}
+
+function bars(me, them) {
+  return Object.keys(DOM).map(k => `
+    <div class="row"><span class="lbl">${DOM[k]}</span>
+      <div class="track">
+        <div class="bar" style="width:${Math.round((me[k]||0)*100)}%;background:var(--${k})"></div>
+        <div class="bar them" style="top:0;height:10px;width:${Math.round((them[k]||0)*100)}%;background:var(--${k});filter:saturate(.4)"></div>
+      </div></div>`).join("");
+}
+
+function chips(o) {
+  const skills = o.shared_skills.map(s => `<span class="tag ${s.is_bridge ? "bridge" : ""}">${esc(s.name)}</span>`).join("");
+  const ints = o.shared_interests.map(n => `<span class="tag int">${esc(n)}</span>`).join("");
+  return (skills || ints) ? skills + ints : '<span class="muted">No shared skills or interests yet</span>';
+}
+
+function personCard(r) {
+  const p = r.profile, o = r.overlap;
+  return `<div class="card">
+    <strong>${esc(p.display_name)}</strong> <span class="badge">${esc(DOM[p.primary_domain])} · ${esc(p.level_label)}</span>
+    <span class="badge">${esc(r.mode)} · ${r.score.toFixed(2)}</span>
+    <div style="margin-top:8px">${bars(o.me_scores, o.them_scores)}</div>
+    <div style="margin-top:6px">${chips(o)}</div>
+    <div class="actions"><button class="primary" onclick="swipe(${p.id},'like')">Like</button><button onclick="swipe(${p.id},'pass')">Pass</button></div>
+  </div>`;
+}
+
+async function loadPeople() {
+  try {
+    const d = await api("/api/discover/people/?mode=" + $("mode").value);
+    $("out").innerHTML = d.results.length ? d.results.map(personCard).join("") : '<p class="muted">No recommendations right now.</p>';
+    $("msg").textContent = "";
+  } catch (e) { $("msg").textContent = e.message; }
+}
+
+async function swipe(id, direction) {
+  try {
+    const d = await api("/api/swipes/", {method: "POST", body: JSON.stringify({to_profile: id, direction})});
+    if (d.matched) { await showMatchProjects(d.match_id); } else { loadPeople(); }
+  } catch (e) { $("msg").textContent = e.message; }
+}
+
+function projectCard(p) {
+  const tag = p.spans_both_domains ? '<span class="badge">spans both of your domains</span>' : "";
+  return `<div class="card"><strong>${esc(p.title)}</strong> <span class="badge">${p.score.toFixed(2)}</span>${tag}
+    <div class="muted">${esc(p.description)}</div>
+    <div style="margin-top:6px">${p.required_skills.map(n => `<span class="tag ${p.you_have.includes(n) ? "" : "int"}">${esc(n)}</span>`).join("")}</div></div>`;
+}
+
+async function showMatchProjects(matchId) {
+  const d = await api(`/api/matches/${matchId}/projects/`);
+  $("out").innerHTML = `<h2>It's a match with ${esc(d.with.display_name)}. Projects for you both:</h2>` + d.results.map(projectCard).join("");
+}
+
+async function loadMatches() {
+  try {
+    const d = await api("/api/matches/");
+    $("out").innerHTML = d.results.length ? d.results.map(m => `<div class="card"><strong>${esc(m.with.display_name)}</strong>
+      <div style="margin-top:6px">${chips(m.overlap)}</div>
+      <div class="actions"><button onclick="showMatchProjects(${m.match_id})">Shared projects</button></div></div>`).join("") : '<p class="muted">No matches yet.</p>';
+  } catch (e) { $("msg").textContent = e.message; }
+}
+</script>
+</body>
+</html>

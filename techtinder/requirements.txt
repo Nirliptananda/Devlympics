@@ -1,0 +1,4 @@
+Django>=5.0,<6
+djangorestframework>=3.15
+# Optional, only when you set POSTGRES_DB (see config/settings.py)
+# psycopg[binary]>=3.1

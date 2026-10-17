@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Smart Plant Monitor",
+    "description": "Soil and light sensors on a microcontroller that reports to a simple web page.",
+    "levels": [1, 2],
+    "skills": ["IoT Development", "Embedded C", "Sensors and Actuators", "Python", "Arduino"]
+  },
+  {
+    "title": "IoT Sensor Dashboard",
+    "description": "Collect sensor readings from devices and show live charts with alerts.",
+    "levels": [2, 3],
+    "skills": ["IoT Development", "Embedded C", "Sensors and Actuators", "Python", "Django", "SQL"]
+  },
+  {
+    "title": "DIY Flight Controller",
+    "description": "Fly a small quadcopter with your own stabilisation firmware.",
+    "levels": [2, 3],
+    "skills": ["Embedded C", "Microcontrollers", "Firmware Debugging", "Motor Control", "Robotics"]
+  },
+  {
+    "title": "Low-cost Robot Arm",
+    "description": "3D-printed arm driven by servos and a small control app.",
+    "levels": [1, 2],
+    "skills": ["Robotics", "Arduino", "3D Printing", "CAD Modeling", "Embedded C"]
+  },
+  {
+    "title": "Campus Hackathon Platform",
+    "description": "Team sign-ups, judging and a live leaderboard for student hackathons.",
+    "levels": [1, 2],
+    "skills": ["Django", "React", "Project Management", "Communication", "UI UX Design"]
+  },
+  {
+    "title": "Hardware Startup Launch Kit",
+    "description": "Costing, suppliers and a go-to-market plan for a small electronics product.",
+    "levels": [2, 3],
+    "skills": ["Hardware Product Management", "Budgeting", "Market Research", "PCB Design", "Supply Chain Basics"]
+  },
+  {
+    "title": "Open Source Dev Toolkit",
+    "description": "Build and maintain a small command-line tool with tests and CI.",
+    "levels": [1, 3],
+    "skills": ["Git", "Python", "Software Testing", "Docker", "Technical Writing"]
+  },
+  {
+    "title": "Community Budget Tracker",
+    "description": "Shared budgeting app for a club or neighbourhood group with simple reports.",
+    "levels": [1, 2],
+    "skills": ["Budgeting", "Data Analysis", "SQL", "Python", "Communication"]
+  },
+  {
+    "title": "Vision-based Quality Checker",
+    "description": "Camera plus a model that flags defects on a small production line.",
+    "levels": [2, 3],
+    "skills": ["Computer Vision", "Python", "Machine Learning", "Sensors and Actuators", "Operations Planning"]
+  },
+  {
+    "title": "Smart Campus Energy Planner",
+    "description": "Meters, dashboards and a business case for cutting energy use.",
+    "levels": [2, 3],
+    "skills": ["Business Analysis", "Data Analysis", "Power Electronics", "IoT Development", "Presentation Skills"]
+  }
+]
