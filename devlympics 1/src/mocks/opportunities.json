@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Smart India Hackathon",
+    "type": "hackathon",
+    "source": "unstop",
+    "organizer": "Govt. of India",
+    "url": "https://unstop.com/",
+    "description": "A national-level hackathon bringing multidisciplinary teams together to solve real public-sector challenges. Build a working prototype and present it to domain experts.",
+    "prize": "₹1,00,000",
+    "mode": "hybrid",
+    "deadline": "2026-12-15",
+    "image_url": "",
+    "required_skills": ["Python", "Arduino", "UI/UX"],
+    "created_at": "2026-10-01T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Hardware + AI Innovation Challenge",
+    "type": "competition",
+    "source": "unstop",
+    "organizer": "TechFest",
+    "url": "https://unstop.com/",
+    "description": "Design an innovative solution that combines connected hardware with practical artificial intelligence. Teams will demonstrate their prototype and explain its real-world impact.",
+    "prize": "₹50,000",
+    "mode": "online",
+    "deadline": "2026-11-30",
+    "image_url": "",
+    "required_skills": ["Arduino", "Machine Learning", "IoT"],
+    "created_at": "2026-10-02T10:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "GreenTech Startup Pitch Cup",
+    "type": "competition",
+    "source": "unstop",
+    "organizer": "E-Cell",
+    "url": "https://unstop.com/",
+    "description": "Pitch a scalable startup idea that addresses an environmental challenge through technology. Finalists receive expert feedback and present to an investor panel.",
+    "prize": "₹75,000",
+    "mode": "offline",
+    "deadline": "2026-12-05",
+    "image_url": "",
+    "required_skills": ["IoT", "Marketing", "Pitching"],
+    "created_at": "2026-10-03T10:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Open Source Smart Farm Platform",
+    "type": "project",
+    "source": "internal",
+    "organizer": "Sparkmatch Community",
+    "url": "https://github.com/",
+    "description": "Contribute to an open-source platform that helps small farms monitor resources and coordinate data. Collaborate on an accessible first release for growers.",
+    "prize": "",
+    "mode": "online",
+    "deadline": null,
+    "image_url": "",
+    "required_skills": ["Python", "Django", "IoT"],
+    "created_at": "2026-10-04T10:00:00Z"
+  }
+]

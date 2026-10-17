@@ -1,0 +1,53 @@
+{
+  "disciplines": [
+    { "value": "hardware", "label": "Hardware / Electronics" },
+    { "value": "software", "label": "Software" },
+    { "value": "design", "label": "Design" },
+    { "value": "business", "label": "Business / Marketing" },
+    { "value": "data_ai", "label": "Data / AI" },
+    { "value": "research", "label": "Research" },
+    { "value": "other", "label": "Other" }
+  ],
+  "experience_levels": [
+    { "value": "beginner", "label": "Beginner" },
+    { "value": "intermediate", "label": "Intermediate" },
+    { "value": "advanced", "label": "Advanced" }
+  ],
+  "skills": [
+    { "id": 1, "name": "Arduino", "category": "hardware" },
+    { "id": 2, "name": "IoT", "category": "hardware" },
+    { "id": 3, "name": "C++", "category": "hardware" },
+    { "id": 4, "name": "Raspberry Pi", "category": "hardware" },
+    { "id": 5, "name": "PCB Design", "category": "hardware" },
+    { "id": 6, "name": "Python", "category": "software" },
+    { "id": 7, "name": "Django", "category": "software" },
+    { "id": 8, "name": "REST APIs", "category": "software" },
+    { "id": 9, "name": "React", "category": "software" },
+    { "id": 10, "name": "JavaScript", "category": "software" },
+    { "id": 11, "name": "SQL", "category": "software" },
+    { "id": 12, "name": "Figma", "category": "design" },
+    { "id": 13, "name": "UI/UX", "category": "design" },
+    { "id": 14, "name": "Prototyping", "category": "design" },
+    { "id": 15, "name": "Branding", "category": "design" },
+    { "id": 16, "name": "Marketing", "category": "business" },
+    { "id": 17, "name": "Market Research", "category": "business" },
+    { "id": 18, "name": "Pitching", "category": "business" },
+    { "id": 19, "name": "Finance", "category": "business" },
+    { "id": 20, "name": "Product Management", "category": "business" },
+    { "id": 21, "name": "Machine Learning", "category": "data_ai" },
+    { "id": 22, "name": "Data Analysis", "category": "data_ai" },
+    { "id": 23, "name": "Computer Vision", "category": "data_ai" }
+  ],
+  "interests": [
+    { "id": 1, "name": "Agritech" },
+    { "id": 2, "name": "Sustainability" },
+    { "id": 3, "name": "Healthtech" },
+    { "id": 4, "name": "EdTech" },
+    { "id": 5, "name": "Fintech" },
+    { "id": 6, "name": "Open Source" },
+    { "id": 7, "name": "Robotics" },
+    { "id": 8, "name": "AI" },
+    { "id": 9, "name": "Startups" },
+    { "id": 10, "name": "Smart Cities" }
+  ]
+}
